@@ -49,8 +49,9 @@ while True:
                                 cantidad_cargas=int(cantidad_cargas)
                                 break
                             else:
-                                print("La cantidad de productos solo puede ser un numero")                                
+                                print("La cantidad de productos solo puede ser un numero")                                                
                 for i in range(cantidad_cargas):
+                            modificacion = False
                             while True:
                                     carga_producto=input("Ingrese el nombre del producto: ").strip().capitalize()
                                     if carga_producto in nombres_prod:
@@ -58,7 +59,7 @@ while True:
                                         print("P. Para Modificar Precio")
                                         print("M. Para Modificar Stock")
                                         print("S. Para Salir")
-                                        accion = input("Ingrese que desea hacer: ")                                        
+                                        accion = input("Ingrese que desea hacer: ").capitalize()                                      
                                         while True:
                                                 match accion:
                                                     case "P":
@@ -69,48 +70,54 @@ while True:
                                                                     carga_precio_num=input("Ingrese el nuevo precio del producto: ")
                                                                     if carga_precio_num.replace(",", "").replace(".","").isdigit():
                                                                         precios_prod[i]=float(carga_precio_num.replace(",", "."))
+                                                                        modificacion = True
                                                                         break
                                                                     else:
                                                                         print("El precio solo puede contener numeros o decimales")                                                        
-                                                                break
-                                                        break
+                                                                break                                                                                                                
                                                     case "M":
-                                                        print(" Stock")                                                        
+                                                        print("Modificar Stock")                                                        
                                                         for i in range(cantidad_cargas):
                                                             if nombres_prod[i]==carga_producto:
                                                                 while True:
                                                                     carga_stock=input("Ingrese el nuevo stock del producto: ")
                                                                     if carga_stock.isdigit():
                                                                         strock_prod[i]=int(carga_stock)
+                                                                        modificacion = True 
                                                                         break
                                                                     else:
                                                                         print("El stock solo puede contener numeros")                                                        
                                                                 break
                                                     case "S":
                                                         print("Salir")
+                                                        modificacion = True
                                                         break
                                                     case _:
-                                                        print("Ingrese una opcion valida")                                                        
-                                    if carga_producto.replace(" ","").isalpha():
-                                            nombres_prod.append(carga_producto)
-                                            break
-                                    else:
-                                            print("El nombre del producto solo puede contener letras")                
-                            while True:
-                                    carga_stock=input("Ingrese el stock del producto: ")
-                                    if carga_stock.isdigit():
-                                        strock_prod.append(int(carga_stock))
-                                        break
-                                    else:
-                                        print("El stock solo puede contener numeros")
-                            while True:
-                                    carga_precio=input("Ingrese el precio del producto: ")
-                                    if carga_precio.replace(",", "").replace(".","").isdigit():                            
-                                        carga_precio_num=float(carga_precio.replace(",", "."))
-                                        precios_prod.append(carga_precio_num)
-                                        break
-                                    else:
-                                        print("El precio solo puede contener numeros o decimales")                                                        
+                                                        print("Ingrese una opcion valida")
+                                                break
+                while not modificacion:    
+                        if carga_producto.replace(" ","").isalpha():
+                                nombres_prod.append(carga_producto)
+                                break
+                        else:
+                                print("El nombre del producto solo puede contener letras")                
+                if modificacion == True:
+                    continue                                            
+                while True:
+                        carga_stock=input("Ingrese el stock del producto: ")
+                        if carga_stock.isdigit():
+                            strock_prod.append(int(carga_stock))
+                            break
+                        else:
+                            print("El stock solo puede contener numeros")
+                while True:
+                        carga_precio=input("Ingrese el precio del producto: ")
+                        if carga_precio.replace(",", "").replace(".","").isdigit():                            
+                            carga_precio_num=float(carga_precio.replace(",", "."))
+                            precios_prod.append(carga_precio_num)
+                            break
+                        else:
+                            print("El precio solo puede contener numeros o decimales")                                                        
             case "3":
                 eliminar_uno()
             case "4":
